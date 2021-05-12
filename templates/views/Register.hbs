@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header}}
+    <title>Register Yourself</title>
+</head>
+
+<body>
+    {{>HomepageNav}}
+    <main>
+
+        <form action="/Register" method="POST" class="main_form">
+            <div class="form-div">
+                {{!-- <label for="Name">Enter Your Name: </label> --}}
+                <input id="Name" name="Name" type="text" placeholder="Enter Your Name" autofocus required>
+            
+                {{!-- <label for="MobileNumber">Enter Your Mobile Number: </label> --}}
+                <input id="MobileNumber" name="MobileNumber" type="text" placeholder="Enter Your Mobile Number"
+                    minlength="10" maxlength="10" pattern="[6-9]{1}[0-9]{9}" required>
+           
+                {{!-- <label for="Address">Enter Company Address:</label> --}}
+                <textarea id="Address" name="Address" placeholder="Enter Your Company Address" cols="30" rows="4"
+                    required></textarea>
+           
+                {{!-- <label for="Pincode">Enter Pincode: </label> --}}
+                <input id="Pincode" name="Pincode" type="text" placeholder="Enter Pincode" minlength="6" maxlength="6"
+                    required>
+            
+                {{!-- <label for="Email">Enter Email:</label> --}}
+                <input id="Email" name="Email" type="email" placeholder="Enter Your Email" required>
+            
+                {{!-- <label for="Password">Create Password:</label> --}}
+                <input id="Password" name="Password" type="password" placeholder="Create Your Password" required>
+            
+                {{!-- <label for="cPassword">Confirm Password:</label> --}}
+                <input id="cPassword" name="cPassword" type="password" placeholder="Confirm Your Password" required>
+
+                <input class="a-btn" type="submit" value="Create My Account">
+            </div>
+
+            
+
+        </form>
+    </main>
+</body>
+
+</html>

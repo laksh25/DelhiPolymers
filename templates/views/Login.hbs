@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header}}
+    <title>Login</title>
+</head>
+
+<body>
+    {{>HomepageNav}}
+    <main>
+        <form action="/Login" method="POST" class="main_form">
+            <div class="form-div">
+              
+                <input type="text" name="Username" placeholder="Enter Your Email" autofocus required>
+         
+                <input type="password" name="Password" placeholder="Enter Your Password" required>
+
+                <input type="submit" value="Login" class="a-btn">
+            </div>
+            
+        </form>
+        <div class="form-div">
+            <h4>
+            <span>Don't Have an Account? </span>
+            <a href="/Register" class="a-btn2">Register Yourself</a>
+            </h4>
+        </div>
+    </main>
+
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header}}
+    <title>Contact Us</title>
+</head>
+
+<body>
+    {{>LoggedInNav}}
+
+    <main>
+
+        <h2>
+            Email: DelhiPolymerscontact@gmail.com
+        </h2>
+        <h2>
+            C-496 DSIDC Industrial Area Narela, New Delhi, India 110040
+        </h2>
+
+        <div id="map"> </div>
+    </main>
+
+    <script>
+        function initMap() {
+            var location = { lat: 28.832804, lng: 77.102475 };
+            var map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 15,
+                center: location,
+                
+            });
+            var marker = new google.maps.Marker({
+                position: location,
+                map: map
+            });
+        }
+    </script>
+
+
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASWV2V4tnK9PSHoPtHBURr-nKh5_7Rba8&callback=initMap">
+        </script>
+</body>
+
+</html>

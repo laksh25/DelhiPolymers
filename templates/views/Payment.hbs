@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header}}
+    <title>Welcome</title>
+
+    <script async>
+
+        if (document.readyState == 'loading') {
+            document.addEventListener('DOMContentLoaded', ready)
+        } else {
+            ready()
+        }
+
+        function ready() {
+            /**
+            var quantityInputs = document.getElementsByClassName('input-quantity')
+            for (var i = 0; i < quantityInputs.length; i++) {
+                var input = quantityInputs[i]
+                input.addEventListener('change', quantityChanged)
+            }
+            */
+            var addButton= document.getElementsByClassName('td-btn');
+            console.log(addButton);
+            for(var i=0; i<addButton.length; i++){
+                var button=addButton[i];
+                button.addEventListener('click', addItem);
+            }
+        }
+        /**
+        function quantityChanged(event) {
+            var input = event.target
+            if (isNAN(input.value) || input.value < 0) {
+                input.value = 0
+            }
+            updateTotal()
+        }
+        */
+        function addItem(event){
+            var buttonClicked= event.target;
+            updateTotal();
+        }
+        
+        function updateTotal() {
+            var Items = document.getElementsByClassName('Item-row');
+            console.log(Items);
+            var total = 0;
+            for (var i = 0; i < Items.length; i++) {
+                var itemRow = Items[i];
+                var priceElement = itemRow.getElementsByClassName('td-price')[0];
+                var quantityElement = itemRow.getElementsByClassName('input-quantity')[0];
+
+                var price = parseFloat(priceElement.innerText.replace('Rs.', ''));
+                var quantity = quantityElement.value;
+                total = total + quantity * price * 1000;
+
+            }
+            console.log(total);
+            document.getElementsByClassName('total-price')[0].innerText = 'Rs.' + total
+        }
+
+    </script>
+</head>
+
+<body>
+    {{>LoggedInNav}}
+
+    <main>
+        <h2>Purchase Goods </h2>
+        <table class="main-table">
+            <tr>
+                <th class="main-th">Item</th>
+                <th class="main-th">Price (in Rs)</th>
+                <th class="main-th">Quantity (in Tons)</th>
+
+            </tr>
+            <tr class="Item-row">
+                <td class="table-td">PVC Compound</td>
+                <td class="td-price table-td">Rs.27</td>
+                <td class="td-quantity table-td">
+                    <input class="input-quantity" type="Number" value="0" min="0" autofocus>
+                </td>
+                <td class="table-td">
+                    <button role="button" class="td-btn">Add</button>
+                </td>
+
+            </tr>
+            <tr class="Item-row">
+                <td class="table-td">Burada</td>
+                <td class="td-price table-td">Rs.15</td>
+                <td class="td-quantity table-td">
+                    <input class="input-quantity" type="Number" value="0" min="0">
+                </td>
+                <td class="table-td">
+                    <button role="button" class="td-btn">Add</button>
+                </td>
+            </tr>
+        </table>
+        <div class="div-total">
+            <span class="div-span">Total: </span>
+            <span class="total-price div-span">Rs. 0</span>
+
+        </div>
+        <button class="a-btn"> Pay </button>
+    </main>
+
+
+
+</body>
+
+</html>
