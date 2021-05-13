@@ -279,6 +279,11 @@ input[type=submit]{
     .nav-link{
         justify-content: center;
     }
+
+    .nav-item:first-child{
+    
+        display: none;
+    }
     
     .link-text{
         margin-left:1rem;

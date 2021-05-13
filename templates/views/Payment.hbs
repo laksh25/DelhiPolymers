@@ -23,7 +23,6 @@
             */
 
             var addButton = document.getElementsByClassName('td-btn');
-            console.log(addButton);
             for (var i = 0; i < addButton.length; i++) {
                 var button = addButton[i];
                 button.addEventListener('click', addItem);
@@ -84,7 +83,6 @@
                 total = total + quantity * price * 1000;
 
             }
-            console.log(total);
             document.getElementsByClassName('total-price')[0].innerText = 'Rs.' + total
         }
 
