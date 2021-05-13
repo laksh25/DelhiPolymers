@@ -19,6 +19,7 @@
         </h2>
 
         <div id="map"> </div>
+        <button role="button" class="a-btn">View Contact Number</button>
     </main>
 
     <script>
@@ -37,8 +38,20 @@
     </script>
 
 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASWV2V4tnK9PSHoPtHBURr-nKh5_7Rba8&callback=initMap">
-        </script>
+    <script async defer 
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASWV2V4tnK9PSHoPtHBURr-nKh5_7Rba8&callback=initMap">
+    </script>
+
+    <script>
+        var button= document.getElementsByClassName("a-btn")[0]
+        button.addEventListener('click',contactAlert)
+
+        function contactAlert(){
+            alert("Contact Us : +91 9773766205")
+        }
+
+    </script>
+
 </body>
 
 </html>
