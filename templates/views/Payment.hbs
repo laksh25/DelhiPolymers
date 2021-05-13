@@ -40,8 +40,6 @@
         */
         function pvcQualityChange() {
             var qualityElement = document.getElementById("pvc-quality-select");
-
-            console.log(qualityElement)
             if (qualityElement.value == "Cream") {
                 document.getElementsByClassName('td-price')[0].innerText = 'Rs.' + 32
             }
@@ -56,13 +54,15 @@
 
         function buradaQualityChange() {
             var qualityElement = document.getElementById("burada-quality-select");
-            console.log(qualityElement)
             if (qualityElement.value == "Black") {
                 console.log("Black")
                 document.getElementsByClassName('td-price')[1].innerText = 'Rs.' + 22
             }
             if (qualityElement.value == "White") {
                 document.getElementsByClassName('td-price')[1].innerText = 'Rs.' + 27
+            }
+            if (qualityElement.value == "Cream") {
+                document.getElementsByClassName('td-price')[1].innerText = 'Rs.' + 25
             }
         }
 
@@ -73,7 +73,6 @@
 
         function updateTotal() {
             var Items = document.getElementsByClassName('Item-row');
-            console.log(Items);
             var total = 0;
             for (var i = 0; i < Items.length; i++) {
                 var itemRow = Items[i];
@@ -127,11 +126,13 @@
                 <td class="table-td">Burada</td>
                 <td class="table-td">
                     <select name="quality-select" id="burada-quality-select" onchange="buradaQualityChange()" class="select-quality">
+                        <option value="Cream">Cream</option>
                         <option value="Black">Black</option>
                         <option value="White">White</option>
+                        
                     </select>
                 </td>
-                <td class="td-price table-td">Rs.22</td>
+                <td class="td-price table-td">Rs.25</td>
                 <td class="td-quantity table-td">
                     <input class="input-quantity" type="Number" value="0" min="0">
                 </td>
