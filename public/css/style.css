@@ -154,6 +154,13 @@ button{
     cursor: pointer;
 }
 
+.select-quality{
+    width:8rem;
+    border:none;
+    border-radius: 0.5rem;
+    padding:0.5rem;
+}
+
 .input-quantity{
     width:3rem;
     border:none;
