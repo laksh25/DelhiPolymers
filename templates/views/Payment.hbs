@@ -3,10 +3,12 @@
 
 <head>
     {{>header}}
-    <title>Welcome</title>
+    <title>Place Order</title>
 
-    <script async>
+    {{!-- <script src="https://checkout.stripe.com/v2/checkout.js"></script> --}}
 
+
+    <script>
         if (document.readyState == 'loading') {
             document.addEventListener('DOMContentLoaded', ready)
         } else {
@@ -28,6 +30,7 @@
                 button.addEventListener('click', addItem);
             }
         }
+
         /**
         function quantityChanged(event) {
             var input = event.target
@@ -37,13 +40,13 @@
             updateTotal()
         }
         */
+
         function pvcQualityChange() {
             var qualityElement = document.getElementById("pvc-quality-select");
             if (qualityElement.value == "Cream") {
                 document.getElementsByClassName('td-price')[0].innerText = 'Rs.' + 32
             }
             if (qualityElement.value == "Black") {
-                console.log("Black")
                 document.getElementsByClassName('td-price')[0].innerText = 'Rs.' + 26
             }
             if (qualityElement.value == "White") {
@@ -81,12 +84,75 @@
                 var price = parseFloat(priceElement.innerText.replace('Rs.', ''));
                 var quantity = quantityElement.value;
                 total = total + quantity * price * 1000;
-
             }
             document.getElementsByClassName('total-price')[0].innerText = 'Rs.' + total
         }
+        /**
+        var stripeHandler = StripeCheckout.configure({
 
+            key: 'pk_test_51IqhGpSGX0zlEuHCOeo6zSq2f1AkiuSPQD8dcC88QNVe2BoTFIyoxqV4MSwqK25qZilPrD2QYMxqV2fYbxiO2NeV00RodHCS1E',
+            locale: 'auto',
+            token: function (token) {
+                var items=[];
+                var ItemContainer=document.getElementsByClassName('Item-row');
+                for(var i=0;i<ItemContainer.length;i++){
+                    var item=ItemContainer[i]
+                    var quantityElement=item.getElementsByClassName('input-quantity')[0]
+                    var quantity= quantityElement.value;
+                    var id=item.dataset.itemId
+                    items.push({
+                        id:id,
+                        quantity:quantity
+                    })
+                }
+
+                fetch('/Purchase', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        stripeTokenId: token.id,
+                        items:items
+                    })
+                })
+                //.then(function(res){
+                  //  return res.json()
+                //}).then(function(data){
+                  //  alert(data.message)
+                //}).catch(function(error){
+                   // console.error(error)
+
+                //})
+            }
+        })
+        */
+        function purchaseClicked() {
+            var priceElement = document.getElementsByClassName('total-price')[0]
+            var price = parseFloat(priceElement.innerText.replace('Rs.', ''))
+            
+
+            fetch('/Payment',{
+                method:'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    price:price
+                })
+            })
+            alert("Payment Link is successfuly generated of amount "+price+ "\nKindly check your email")
+            /**
+            stripeHandler.open({
+                currency:"inr",
+                amount: price
+            })
+            */
+        }
     </script>
+
+
 </head>
 
 <body>
@@ -105,7 +171,8 @@
             <tr class="Item-row">
                 <td class="table-td">PVC Compound</td>
                 <td class="table-td">
-                    <select name="quality-select" id="pvc-quality-select" onchange="pvcQualityChange()" class="select-quality" autofocus>
+                    <select name="quality-select" id="pvc-quality-select" onchange="pvcQualityChange()"
+                        class="select-quality" autofocus>
                         <option value="Cream">Cream</option>
                         <option value="Black">Black</option>
                         <option value="White">White</option>
@@ -123,11 +190,12 @@
             <tr class="Item-row">
                 <td class="table-td">Burada</td>
                 <td class="table-td">
-                    <select name="quality-select" id="burada-quality-select" onchange="buradaQualityChange()" class="select-quality">
+                    <select name="quality-select" id="burada-quality-select" onchange="buradaQualityChange()"
+                        class="select-quality">
                         <option value="Cream">Cream</option>
                         <option value="Black">Black</option>
                         <option value="White">White</option>
-                        
+
                     </select>
                 </td>
                 <td class="td-price table-td">Rs.25</td>
@@ -144,7 +212,18 @@
             <span class="total-price div-span">Rs. 0</span>
 
         </div>
-        <button class="a-btn"> Pay </button>
+        <button class="a-btn" onclick="purchaseClicked()"> Pay </button>
+
+        {{!-- <form action="/Payment" method="POST">
+            <script src="//checkout.stripe.com/v2/checkout.js" class="stripe-button"
+                data-key='pk_test_51IqhGpSGX0zlEuHCOeo6zSq2f1AkiuSPQD8dcC88QNVe2BoTFIyoxqV4MSwqK25qZilPrD2QYMxqV2fYbxiO2NeV00RodHCS1E'
+                data-amount="70000" data-currency="INR" data-name="Delhi Polymers" data-description="Purchase goods "
+                data-locale="auto">
+                    console.log(document.getElementsByClassName('total-price')[0].innerText)
+                </script>
+        </form> --}}
+
+
     </main>
 </body>
 

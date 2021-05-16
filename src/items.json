@@ -1,0 +1,36 @@
+{
+    "pvcCompound": [
+        {
+            "id":1,
+            "quality":"Cream",
+            "price":"3200"
+        },
+        {
+            "id":2,
+            "quality":"Black",
+            "price":"2600"
+        },
+        {
+            "id":3,
+            "quality":"White",
+            "price":"3500"
+        }
+    ],
+    "burada": [
+        {
+            "id":4,
+            "quality":"Cream",
+            "price":"2500"
+        },
+        {
+            "id":5,
+            "quality":"Black",
+            "price":"2200"
+        },
+        {
+            "id":6,
+            "quality":"White",
+            "price":"2700"
+        }
+    ]
+}
