@@ -142,7 +142,19 @@
                     price:price
                 })
             })
-            alert("Payment Link is successfuly generated of amount "+price+ "\nKindly check your email")
+            alert("Payment Link is successfuly generated of amount Rs."+price+ "\nKindly check your email");
+            var pQualityElement = document.getElementById("pvc-quality-select");
+            pQualityElement.value="Cream";
+            pvcQualityChange()
+            var bQualityElement = document.getElementById("burada-quality-select");
+            bQualityElement.value="Cream";
+            buradaQualityChange()            
+            var pvcQuant = document.getElementsByClassName('input-quantity')[0];
+            pvcQuant.value=0;
+            var buradaQuant = document.getElementsByClassName('input-quantity')[1];
+            buradaQuant.value=0;
+            updateTotal();
+
             /**
             stripeHandler.open({
                 currency:"inr",
