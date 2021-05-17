@@ -25,9 +25,8 @@ body::-webkit-scrollbar-thumb{
 
 
 .navbar{
-    
     position:fixed;
-    background:black;
+    background:#667292;
     transition: width 200ms ease-in-out;
 }
 
@@ -56,7 +55,6 @@ body::-webkit-scrollbar-thumb{
     align-items:center;
     height:5rem;
     text-decoration: none;
-    
 }
 
 .link-text:hover{
@@ -94,13 +92,25 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
+
+    /* background-image: -moz-linear-gradient(-45deg, #6666FF, #F0E68C 53%);
+    background-image: -webkit-gradient(linear, left top, right bottom, color-stop(0.00, #6666FF), color-stop(0.53, #F0E68C)); */
 }
 
-/* Not in use currently */
-.main-div{
-    display: flex;
-    flex-wrap: wrap;
+.main-head{
+    margin-bottom: 0rem;
+    color: #4B0082;
+    text-shadow: -1px -1px 0px #7B68EE;
+    font-size:3.5rem;
+}
+
+.p-intro{
+    width:60%;
+    color: #4B0082;
+    text-shadow: -1px -1px 0px #7B68EE;
+    text-align: center;
+    font-size:1.25rem;
+
 }
 
 .main_form{
@@ -236,8 +246,43 @@ input[type=submit]{
 }
 
 
+footer{
+    width: 100%;
+    /* background-color: #618685; */
+    background-color: #bccad6;
+    display:flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
 
-
+footer p{
+    margin-right:26rem;
+    margin-bottom:1.5rem;
+    text-align: center;
+    font-size:1rem;
+    color: #667292;
+    font-weight: bold;
+    
+    /* line-height: 5rem; */
+}
+.footer-foot{
+    display: flex;
+    flex-direction: row;
+    /* justify-content: flex-end;
+    align-items: flex-end; */
+}
+.footer-item{
+    display: flex;
+    flex-direction: row; 
+    justify-content: end;
+} 
+/* .footer-link{
+    display:flex;
+    align-items:end;
+    height:5rem;
+    text-decoration: none;
+} */
 
 /* Large Screens */
 @media only screen and (min-width:800px){
@@ -257,7 +302,8 @@ input[type=submit]{
     .link-text{
         display:none;
         margin-left:1rem;
-        color: #5731be;
+        color:#f1e3dd;
+        /* color:#6666FF; */
     }
 
     main{
@@ -287,11 +333,19 @@ input[type=submit]{
     
     .link-text{
         margin-left:1rem;
+        color:#6666FF;
     }
 
     .main{
         margin-top:5rem;
         padding: 1rem;
         
+    }
+
+    .main-head{
+        /* margin-bottom: 0rem;
+        color: #4B0082;
+        text-shadow: -1px -1px 0px #7B68EE; */
+        font-size:2rem;
     }
 }

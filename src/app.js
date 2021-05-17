@@ -170,7 +170,7 @@ app.post("/Payment", (req, res) => {
 
     data.setRedirectUrl(REDIRECT_URL);
     data.send_email = "True";
-    data.purpose = "Buy Goods from Delhi Polymers"; 
+    data.purpose = "Buy Goods and Raw Material"; 
 
     data.amount=req.body.price
     data.email=useremail
