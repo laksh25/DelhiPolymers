@@ -106,8 +106,9 @@ app.post("/Register", async (req, res) => {
 
 app.post("/Login", async (req, res) => {
     try {
+        const email= req.body.Email;
         const pass = req.body.Password;
-        const BR = await BuyerRegister.findOne({ password: pass });
+        const BR = await BuyerRegister.findOne({ email: email });
 
         if (BR.password === pass) {
             useremail = BR.email;

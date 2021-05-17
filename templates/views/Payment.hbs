@@ -5,7 +5,8 @@
     {{>header}}
     <title>Place Order</title>
 
-    {{!-- <script src="https://checkout.stripe.com/v2/checkout.js"></script> --}}
+    {{!--
+    <script src="https://checkout.stripe.com/v2/checkout.js"></script> --}}
 
 
     <script>
@@ -131,28 +132,28 @@
         function purchaseClicked() {
             var priceElement = document.getElementsByClassName('total-price')[0]
             var price = parseFloat(priceElement.innerText.replace('Rs.', ''))
-            
 
-            fetch('/Payment',{
-                method:'POST',
-                headers:{
+
+            fetch('/Payment', {
+                method: 'POST',
+                headers: {
                     'Content-Type': 'application/json'
                 },
-                body:JSON.stringify({
-                    price:price
+                body: JSON.stringify({
+                    price: price
                 })
             })
-            alert("Payment Link is successfuly generated of amount Rs."+price+ "\nKindly check your email");
+            alert("Payment Link is successfuly generated of amount Rs." + price + "\nKindly check your email");
             var pQualityElement = document.getElementById("pvc-quality-select");
-            pQualityElement.value="Cream";
+            pQualityElement.value = "Cream";
             pvcQualityChange()
             var bQualityElement = document.getElementById("burada-quality-select");
-            bQualityElement.value="Cream";
-            buradaQualityChange()            
+            bQualityElement.value = "Cream";
+            buradaQualityChange()
             var pvcQuant = document.getElementsByClassName('input-quantity')[0];
-            pvcQuant.value=0;
+            pvcQuant.value = 0;
             var buradaQuant = document.getElementsByClassName('input-quantity')[1];
-            buradaQuant.value=0;
+            buradaQuant.value = 0;
             updateTotal();
 
             /**
