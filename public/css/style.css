@@ -104,6 +104,12 @@ main{
     font-size:3.5rem;
 }
 
+.main-h2{
+    color: #4B0082;
+    text-shadow: -1px -1px 0px #7B68EE;
+    text-align: center;
+}
+
 .p-intro{
     width:60%;
     color: #4B0082;
@@ -248,41 +254,28 @@ input[type=submit]{
 
 footer{
     width: 100%;
-    /* background-color: #618685; */
     background-color: #bccad6;
-    display:flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-end;
 }
 
-footer p{
-    margin-right:26rem;
-    margin-bottom:1.5rem;
+
+.footer-p{
     text-align: center;
     font-size:1rem;
     color: #667292;
     font-weight: bold;
-    
-    /* line-height: 5rem; */
+    margin-top: 2rem;
 }
-.footer-foot{
+
+
+.footer-div{
     display: flex;
     flex-direction: row;
-    /* justify-content: flex-end;
-    align-items: flex-end; */
+    justify-content: flex-end;
 }
-.footer-item{
-    display: flex;
-    flex-direction: row; 
-    justify-content: end;
-} 
-/* .footer-link{
-    display:flex;
-    align-items:end;
-    height:5rem;
-    text-decoration: none;
-} */
+
+.footer-div a{
+    margin-right: 1.5rem;
+}
 
 /* Large Screens */
 @media only screen and (min-width:800px){
@@ -305,7 +298,6 @@ footer p{
         color:#f1e3dd;
         /* color:#6666FF; */
     }
-
     main{
         margin-left: 5rem;
     }
