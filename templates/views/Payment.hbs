@@ -132,29 +132,54 @@
         function purchaseClicked() {
             var priceElement = document.getElementsByClassName('total-price')[0]
             var price = parseFloat(priceElement.innerText.replace('Rs.', ''))
+            var Items = document.getElementsByClassName('Item-row');
+            var itemrow=Items[0];
+            var str="";
+            for(let i=0;i<2;i++){
+                var itemrow=Items[i];
+                var quantityElement= itemrow.getElementsByClassName('input-quantity')[0];
+                if(quantityElement.value!=0 && i==0){
+                    var prod1= document.getElementById('Prod1').innerHTML;
+                    var quality1=document.getElementById("pvc-quality-select").value;
+                    str=`${quantityElement.value} Tons of ${prod1} (${quality1})`;
+                }
+                if(quantityElement.value!=0 && i==1){
+                    var prod2= document.getElementById('Prod2').innerHTML;
+                    var quality2=document.getElementById("burada-quality-select").value;
 
+                    str=str+`| ${quantityElement.value} Tons of ${prod2} (${quality2})`;
+                }
+            }
 
-            fetch('/Payment', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    price: price
+            console.log(str);
+            if (price === 0) {
+                alert("Please Add an item to buy");
+            }
+            else {
+                fetch('/Payment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        price: price,
+                        str:str
+                    })
                 })
-            })
-            alert("Payment Link is successfuly generated of amount Rs." + price + "\nKindly check your email");
-            var pQualityElement = document.getElementById("pvc-quality-select");
-            pQualityElement.value = "Cream";
-            pvcQualityChange()
-            var bQualityElement = document.getElementById("burada-quality-select");
-            bQualityElement.value = "Cream";
-            buradaQualityChange()
-            var pvcQuant = document.getElementsByClassName('input-quantity')[0];
-            pvcQuant.value = 0;
-            var buradaQuant = document.getElementsByClassName('input-quantity')[1];
-            buradaQuant.value = 0;
-            updateTotal();
+                alert("Your Payment of amount Rs." + price + " has been initiated.\nKindly check your email");
+                var pQualityElement = document.getElementById("pvc-quality-select");
+                pQualityElement.value = "Cream";
+                pvcQualityChange()
+                var bQualityElement = document.getElementById("burada-quality-select");
+                bQualityElement.value = "Cream";
+                buradaQualityChange()
+                var pvcQuant = document.getElementsByClassName('input-quantity')[0];
+                pvcQuant.value = 0;
+                var buradaQuant = document.getElementsByClassName('input-quantity')[1];
+                buradaQuant.value = 0;
+                updateTotal();
+            }
+
 
             /**
             stripeHandler.open({
@@ -164,8 +189,6 @@
             */
         }
     </script>
-
-
 </head>
 
 <body>
@@ -182,7 +205,7 @@
 
             </tr>
             <tr class="Item-row">
-                <td class="table-td">PVC Compound</td>
+                <td class="table-td Product" id="Prod1">PVC Compound</td>
                 <td class="table-td">
                     <select name="quality-select" id="pvc-quality-select" onchange="pvcQualityChange()"
                         class="select-quality" autofocus>
@@ -201,7 +224,7 @@
 
             </tr>
             <tr class="Item-row">
-                <td class="table-td">Burada</td>
+                <td class="table-td Product" id="Prod2">Burada</td>
                 <td class="table-td">
                     <select name="quality-select" id="burada-quality-select" onchange="buradaQualityChange()"
                         class="select-quality">
@@ -226,18 +249,8 @@
 
         </div>
         <button class="a-btn" onclick="purchaseClicked()"> Pay </button>
-
-        {{!-- <form action="/Payment" method="POST">
-            <script src="//checkout.stripe.com/v2/checkout.js" class="stripe-button"
-                data-key='pk_test_51IqhGpSGX0zlEuHCOeo6zSq2f1AkiuSPQD8dcC88QNVe2BoTFIyoxqV4MSwqK25qZilPrD2QYMxqV2fYbxiO2NeV00RodHCS1E'
-                data-amount="70000" data-currency="INR" data-name="Delhi Polymers" data-description="Purchase goods "
-                data-locale="auto">
-                    console.log(document.getElementsByClassName('total-price')[0].innerText)
-                </script>
-        </form> --}}
-
-
     </main>
 </body>
 {{>footer}}
+
 </html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header}}
+    <title>My Profile</title>
+</head>
+
+<body>
+    {{>LoggedInNav}}
+    <main>
+        <ul class="ul-container">
+            <li class="container-item">
+                {{userDetails.name}}
+                <button class="ul-btn">Edit</button>
+            </li>
+            <li class="container-item">
+                {{userDetails.email}}
+                <button class="ul-btn">Edit</button>
+            </li>
+            <li class="container-item">
+                {{userDetails.mobileNumber}}
+                <button class="ul-btn">Edit</button>
+            </li>
+            <li class="container-item">
+                {{userDetails.companyAddress}}
+                {{userDetails.pincode}}
+                <button class="ul-btn">Edit</button>
+            </li>
+        </ul>
+
+
+
+
+
+
+
+
+
+
+
+    </main>
+</body>
+{{>footer}}
+
+</html>

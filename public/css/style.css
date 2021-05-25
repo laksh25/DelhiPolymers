@@ -1,7 +1,6 @@
 :root{
     font-size:16px;
     font-family: 'Baloo Bhai 2', cursive;
-
 }
 body{
     color:black;
@@ -15,7 +14,6 @@ body::-webkit-scrollbar{
 }
 
 body::-webkit-scrollbar-track{
-    
     background:#1e1e24;
 }
 
@@ -83,9 +81,9 @@ nav ul li a:hover{
 
 main{
     /* background-image: url("../images/Background3.jpg"); */
-    background-repeat: no-repeat;
+    /* background-repeat: no-repeat;
     background-size: cover;
-    background-position: center;
+    background-position: center; */
     padding:1rem;
     height: 100vh;
     display:flex;
@@ -251,11 +249,52 @@ input[type=submit]{
     width: 40%;  
 }
 
+.ul-container{
+    list-style:none;
+    padding:3rem;
+    background-color: #FDF5E6;
+    display:flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    
+}
+
+.container-item{
+    margin-bottom: 2rem;
+    font-size:1rem;
+}
+
+.ul-btn{
+    background-color: #4B0082;
+    color: #fff;
+    padding: 0.5rem;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    margin-left:1rem;
+    border-radius: 0.5rem;
+    
+    box-shadow: 0.7rem 0.5rem 0.5rem black;
+    font-family: 'Baloo Bhai 2', cursive;
+}
 
 footer{
     width: 100%;
     background-color: #bccad6;
+    
 }
+
+/* .footer-container{
+    display:flex;
+    flex-direction: row;
+    list-style: none;
+    justify-content: flex-end;
+}
+
+.footer-item{
+    margin-top: 2rem;
+    margin-right: 2rem;
+} */
 
 
 .footer-p{
@@ -276,6 +315,8 @@ footer{
 .footer-div a{
     margin-right: 1.5rem;
 }
+
+
 
 /* Large Screens */
 @media only screen and (min-width:800px){

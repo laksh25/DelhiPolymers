@@ -64,13 +64,28 @@ app.get("/Payment", (req, res) => {
     res.render("Payment")
 })
 
-// app.get("/Purchase",(req,res)=>{
-//     res.send("I am purchase")
-// })
+app.get("/UserProfile", async (req, res) => {
+
+    try {
+        const BR = await BuyerRegister.findOne({ email: useremail });
+        console.log(BR.name)
+        res.status(201).render("UserProfile",
+            {
+                userDetails: BR
+            }
+        )
+
+    } catch (error) {
+        res.send("Error in loading profile")
+    }
+
+})
+
 
 app.get("/ContactUsLoggedIn", (req, res) => {
     res.render("ContactUsLoggedIn");
 })
+
 
 app.post("/Register", async (req, res) => {
     try {
@@ -106,7 +121,7 @@ app.post("/Register", async (req, res) => {
 
 app.post("/Login", async (req, res) => {
     try {
-        const email= req.body.Email;
+        const email = req.body.Email;
         const pass = req.body.Password;
         const BR = await BuyerRegister.findOne({ email: email });
 
@@ -163,30 +178,30 @@ app.post("/Login", async (req, res) => {
 app.post("/Payment", (req, res) => {
     console.log(useremail)
     console.log(req.body.price)
-
+    
     var data = new Insta.PaymentData();
 
     const REDIRECT_URL = "http://localhost:8000/success";
 
     data.setRedirectUrl(REDIRECT_URL);
     data.send_email = "True";
-    data.purpose = "Buy Goods and Raw Material"; 
+    data.purpose = req.body.str;
 
-    data.amount=req.body.price
-    data.email=useremail
+    data.amount = req.body.price;
+    data.email = useremail;
 
     Insta.createPayment(data, function (error, response) {
         if (error) {
-          console.log("Error in InstaMojo Payment post method")
+            console.log("Error in InstaMojo Payment post method")
         } else {
-          // Payment redirection link at response.payment_request.longurl
-          console.log(response)
-          res.send("Please check your email to make payment")
+            // Payment redirection link at response.payment_request.longurl
+            console.log(response)
+            res.send("Please check your email to make payment")
         }
-      });
+    });
 })
 
-app.get('/success',(req,res)=>{
+app.get('/success', (req, res) => {
     res.send("Payment is successful, Please check your email for invoice")
 })
 
