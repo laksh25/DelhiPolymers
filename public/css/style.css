@@ -1,6 +1,8 @@
 :root{
     font-size:16px;
     font-family: 'Baloo Bhai 2', cursive;
+    margin: 0;
+    padding: 0;
 }
 body{
     color:black;
@@ -21,7 +23,6 @@ body::-webkit-scrollbar-thumb{
     background:#6649b8;
 }
 
-
 .navbar{
     position:fixed;
     background:#667292;
@@ -35,7 +36,6 @@ body::-webkit-scrollbar-thumb{
     display:flex;
     flex-direction: column;
     align-items: center;
-    
 }
 
 .nav-item{
@@ -43,7 +43,6 @@ body::-webkit-scrollbar-thumb{
 }
 
 .nav-item:first-child{
-    
     background-color: rgba(25, 20, 73, 0.8);
     margin-bottom: 2rem;
 }
@@ -108,13 +107,18 @@ main{
     text-align: center;
 }
 
+.h2-query{
+    color: #19dd4a;
+    text-shadow: -1px -1px 0px #7B68EE;
+    text-align: center;
+}
+
 .p-intro{
     width:60%;
     color: #4B0082;
     text-shadow: -1px -1px 0px #7B68EE;
     text-align: center;
     font-size:1.25rem;
-
 }
 
 .main_form{
@@ -122,7 +126,6 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    
 }
 
 .main-table{
@@ -155,7 +158,6 @@ th td{
 
 .div-total{
     margin-left:25rem;
-    
 }
 
 .div-span{
@@ -183,7 +185,6 @@ button{
     padding:0.5rem;
 }
 
-
 .form-div {
     border-radius: 0.5rem;
     background-color: #f2f2f2;
@@ -196,6 +197,17 @@ button{
     align-items: center;
 }
 
+.query-form{
+    border-radius: 0.5rem;
+    padding : 2rem;
+    margin-top: 2rem;
+    background-color: #f2f2f2;
+    width:30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 
 .a-btn{
     display: block;
@@ -212,11 +224,25 @@ button{
     font-family: 'Baloo Bhai 2', cursive;
 }
 
+.query-btn{
+    display: block;
+    background-color: #00A9D4;
+    color: #fff;
+    padding: 1rem;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    width: 10rem;
+    margin-bottom: 1rem;
+    border-radius: 2rem;
+    box-shadow: 0.7rem 0.5rem 0.5rem black;
+    font-family: 'Baloo Bhai 2', cursive;
+}
+
 .a-btn2{
     text-decoration: none;
     color: #2a00e4;
 }
-
 
 .a-btn:hover{
     background: #00729D;
@@ -232,9 +258,7 @@ input[type=text], textarea, [type=email], [type=password] {
     box-sizing: border-box;
     resize:none;
     font-family: 'Baloo Bhai 2', cursive;
-  }
-
-
+}
 
 input[type=submit]{
     border: none;
@@ -281,20 +305,24 @@ input[type=submit]{
 footer{
     width: 100%;
     background-color: #bccad6;
-    
+    line-height: 5rem;
 }
 
-/* .footer-container{
+.footer-container{
     display:flex;
     flex-direction: row;
     list-style: none;
     justify-content: flex-end;
 }
 
+.footer-item:first-child{
+    margin-right: 23rem;
+}
+
 .footer-item{
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
     margin-right: 2rem;
-} */
+}
 
 
 .footer-p{
@@ -302,9 +330,9 @@ footer{
     font-size:1rem;
     color: #667292;
     font-weight: bold;
-    margin-top: 2rem;
+    /* margin-top: 2rem; */
+    /* padding-top: 1rem; */
 }
-
 
 .footer-div{
     display: flex;
@@ -316,15 +344,12 @@ footer{
     margin-right: 1.5rem;
 }
 
-
-
 /* Large Screens */
 @media only screen and (min-width:800px){
     .navbar{
         top:0;
         width:5rem;
         height:100vh;
-
     }
     .navbar:hover{
         width:14rem;

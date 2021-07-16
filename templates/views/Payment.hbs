@@ -5,10 +5,6 @@
     {{>header}}
     <title>Place Order</title>
 
-    {{!--
-    <script src="https://checkout.stripe.com/v2/checkout.js"></script> --}}
-
-
     <script>
         if (document.readyState == 'loading') {
             document.addEventListener('DOMContentLoaded', ready)
@@ -41,6 +37,10 @@
             updateTotal()
         }
         */
+        function addItem(event) {
+            var buttonClicked = event.target;
+            updateTotal();
+        }
 
         function pvcQualityChange() {
             var qualityElement = document.getElementById("pvc-quality-select");
@@ -69,10 +69,6 @@
             }
         }
 
-        function addItem(event) {
-            var buttonClicked = event.target;
-            updateTotal();
-        }
 
         function updateTotal() {
             var Items = document.getElementsByClassName('Item-row');
@@ -88,66 +84,35 @@
             }
             document.getElementsByClassName('total-price')[0].innerText = 'Rs.' + total
         }
-        /**
-        var stripeHandler = StripeCheckout.configure({
 
-            key: 'pk_test_51IqhGpSGX0zlEuHCOeo6zSq2f1AkiuSPQD8dcC88QNVe2BoTFIyoxqV4MSwqK25qZilPrD2QYMxqV2fYbxiO2NeV00RodHCS1E',
-            locale: 'auto',
-            token: function (token) {
-                var items=[];
-                var ItemContainer=document.getElementsByClassName('Item-row');
-                for(var i=0;i<ItemContainer.length;i++){
-                    var item=ItemContainer[i]
-                    var quantityElement=item.getElementsByClassName('input-quantity')[0]
-                    var quantity= quantityElement.value;
-                    var id=item.dataset.itemId
-                    items.push({
-                        id:id,
-                        quantity:quantity
-                    })
-                }
-
-                fetch('/Purchase', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        stripeTokenId: token.id,
-                        items:items
-                    })
-                })
-                //.then(function(res){
-                  //  return res.json()
-                //}).then(function(data){
-                  //  alert(data.message)
-                //}).catch(function(error){
-                   // console.error(error)
-
-                //})
-            }
-        })
-        */
         function purchaseClicked() {
             var priceElement = document.getElementsByClassName('total-price')[0]
             var price = parseFloat(priceElement.innerText.replace('Rs.', ''))
             var Items = document.getElementsByClassName('Item-row');
-            var itemrow=Items[0];
-            var str="";
-            for(let i=0;i<2;i++){
-                var itemrow=Items[i];
-                var quantityElement= itemrow.getElementsByClassName('input-quantity')[0];
-                if(quantityElement.value!=0 && i==0){
-                    var prod1= document.getElementById('Prod1').innerHTML;
-                    var quality1=document.getElementById("pvc-quality-select").value;
-                    str=`${quantityElement.value} Tons of ${prod1} (${quality1})`;
+            var itemrow = Items[0];
+            var str = "";
+            for (let i = 0; i < 2; i++) {
+                var itemrow = Items[i];
+                var quantityElement = itemrow.getElementsByClassName('input-quantity')[0];
+                if (quantityElement.value != 0 && i == 0) {
+                    var prod1 = document.getElementById('Prod1').innerHTML;
+                    var quality1 = document.getElementById("pvc-quality-select").value;
+                    if(str!==""){
+                        str = str + `${quantityElement.value} Tons of ${prod1} (${quality1})`;
+                    }
+                    else if(str===""){
+                        str = `${quantityElement.value} Tons of ${prod1} (${quality1})`;
+                    }
                 }
-                if(quantityElement.value!=0 && i==1){
-                    var prod2= document.getElementById('Prod2').innerHTML;
-                    var quality2=document.getElementById("burada-quality-select").value;
-
-                    str=str+`| ${quantityElement.value} Tons of ${prod2} (${quality2})`;
+                if (quantityElement.value != 0 && i == 1) {
+                    var prod2 = document.getElementById('Prod2').innerHTML;
+                    var quality2 = document.getElementById("burada-quality-select").value;
+                    if(str!==""){
+                        str = str + `| ${quantityElement.value} Tons of ${prod2} (${quality2})`;
+                    }
+                    else if(str===""){
+                        str=`${quantityElement.value} Tons of ${prod2} (${quality2})`;
+                    }
                 }
             }
 
@@ -163,7 +128,7 @@
                     },
                     body: JSON.stringify({
                         price: price,
-                        str:str
+                        str: str
                     })
                 })
                 alert("Your Payment of amount Rs." + price + " has been initiated.\nKindly check your email");
@@ -180,13 +145,6 @@
                 updateTotal();
             }
 
-
-            /**
-            stripeHandler.open({
-                currency:"inr",
-                amount: price
-            })
-            */
         }
     </script>
 </head>
@@ -249,6 +207,7 @@
 
         </div>
         <button class="a-btn" onclick="purchaseClicked()"> Pay </button>
+
     </main>
 </body>
 {{>footer}}

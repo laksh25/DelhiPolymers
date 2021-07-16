@@ -10,16 +10,21 @@
     {{>LoggedInNav}}
 
     <main>
-
         <h2 class="main-h2">
-            Email: DelhiPolymerscontact@gmail.com
-        </h2>
-        <h2 class="main-h2">
+            Email: DelhiPolymerscontact@gmail.com <br>
             C-496 DSIDC Industrial Area Narela, New Delhi, India 110040
         </h2>
+            <button role="button" class="query-btn">View Contact Number</button>
 
         <div id="map"> </div>
-        <button role="button" class="a-btn">View Contact Number</button>
+
+        <form action="/ContactUsLoggedIn" method= "POST" class = "query-form">
+        <h2 class="h2-query">
+            Have A Query? Type to Us
+        </h2>
+            <textarea id="Query" name="query" placeholder="Enter Your Query" cols="30" rows="4" required></textarea>
+            <input type="submit" value = "Submit" class = "a-btn">
+        </form>
     </main>
 
     <script>
@@ -28,7 +33,6 @@
             var map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 15,
                 center: location,
-                
             });
             var marker = new google.maps.Marker({
                 position: location,
@@ -43,7 +47,7 @@
     </script>
 
     <script>
-        var button= document.getElementsByClassName("a-btn")[0]
+        var button= document.getElementsByClassName("query-btn")[0]
         button.addEventListener('click',contactAlert)
 
         function contactAlert(){

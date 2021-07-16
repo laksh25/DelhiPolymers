@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{>header}}
+    <title>Transactions History</title>
+</head>
+
+<body>
+    {{>LoggedInNav}}
+    <main>
+        <div>
+            <table>
+                    <tr>
+                        <th>Paid For</th>
+                        <th>Amount</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                    {{#each userPaymentDetails}}
+                    <tr>
+                        <td>{{this.paidFor}}</td>
+                        <td>{{this.amount}}</td>
+                        <td>{{this.transactionDate}}</td>
+                        <td>{{this.status}}</td>
+                    </tr>
+                    {{/each}}
+            </table>
+        </div>
+    </main>
+</body>
+
+
+</html>
+{{>footer}}

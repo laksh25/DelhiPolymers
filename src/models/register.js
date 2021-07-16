@@ -1,7 +1,37 @@
 const mongoose= require('mongoose');
 
-const BuyerInfoSchema= new mongoose.Schema({
+const ContactUsQuery = new mongoose.Schema({
+    query:{
+        type: String
+    },
+    queryDate:{
+        type: String
+    }
+})
 
+const paymentSchema= new mongoose.Schema({
+    name:{
+        type: String
+    },
+    email:{
+        type: String,
+        unique: true
+    },
+    amount:{
+        type:Number
+    },
+    paidFor:{
+        type:String
+    },
+    status:{
+        type:String
+    },
+    transactionDate:{
+        type:String
+    }
+})
+
+const BuyerInfoSchema= new mongoose.Schema({
     name: {
         type: String,
     },
@@ -15,11 +45,20 @@ const BuyerInfoSchema= new mongoose.Schema({
     companyAddress: {
         type: String
     },
+    userType: {
+        type: String
+    },
     pincode:{
         type:Number
     },
     password:{
         type: String
+    },
+    payment:{
+        type:[paymentSchema]
+    },
+    contact:{
+        type:[ContactUsQuery]
     }
 })
 

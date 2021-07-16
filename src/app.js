@@ -1,22 +1,16 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config({ path: '.env' })
-}
+require('dotenv').config({ path: '.env' })
 
-// const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
-// const stripePublicKey = process.env.STRIPE_PUBLIC_KEY;
-// const fs= require('fs')
-
-// const stripe= require('stripe')(stripeSecretKey)
 const Insta = require("instamojo-nodejs");
 const API_KEY = process.env.API_KEY
 const AUTH_KEY = process.env.AUTH_KEY
+const fetch = require('node-fetch')
 
 Insta.setKeys(API_KEY, AUTH_KEY);
 
 Insta.isSandboxMode(true);
 
 var useremail = ""
-
+var username = ""
 const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
@@ -63,24 +57,55 @@ app.get("/Login", (req, res) => {
 app.get("/Payment", (req, res) => {
     res.render("Payment")
 })
+app.get("/ViewBuyers", (req, res) => {
+    res.render("ViewBuyers")
+})
+app.get("/ViewQueryRequests", (req, res) => {
+    res.render("ViewQueryRequests")
+})
 
 app.get("/UserProfile", async (req, res) => {
-
     try {
         const BR = await BuyerRegister.findOne({ email: useremail });
         console.log(BR.name)
         res.status(201).render("UserProfile",
             {
                 userDetails: BR
-            }
-        )
+            })
 
     } catch (error) {
         res.send("Error in loading profile")
     }
-
 })
 
+app.get("/PaymentRecords", async (req, res) => {
+    try {
+        const BR = await BuyerRegister.findOne({ email: useremail });
+        console.log(BR.name)
+        res.status(201).render("PaymentRecords",
+            {
+                userPaymentDetails: BR.payment
+            })
+    } catch (error) {
+        res.send("Error in loading PaymentRecords")
+    }
+});
+
+app.get("/ViewOrderRequests", async (req, res)=>{
+    try{
+        const cursor = await BuyerRegister.find({userType: "Customer"});
+        // cursor.each(function(err, item){
+        //     userPayment.push(item);
+        // })
+        console.log(cursor);
+        res.status(201).render("ViewOrderRequests",{
+            orderDetails : cursor
+        })
+    }catch(error){
+        res.send("Error in loading ViewOrderRequests");
+        console.log(error);
+    }
+});
 
 app.get("/ContactUsLoggedIn", (req, res) => {
     res.render("ContactUsLoggedIn");
@@ -94,16 +119,14 @@ app.post("/Register", async (req, res) => {
 
         if (password === cpass) {
             const registerBuyer = new BuyerRegister({
-
                 name: req.body.Name,
                 mobileNumber: req.body.MobileNumber,
                 email: req.body.Email,
                 companyAddress: req.body.Address,
                 pincode: req.body.Pincode,
-                password: password
+                password: password,
+                userType : "Customer"
             })
-
-
             const registered = await registerBuyer.save();
             console.log("Registration Successful");
             res.status(201).render("Login");
@@ -118,67 +141,77 @@ app.post("/Register", async (req, res) => {
     }
 })
 
-
 app.post("/Login", async (req, res) => {
     try {
         const email = req.body.Email;
         const pass = req.body.Password;
         const BR = await BuyerRegister.findOne({ email: email });
 
-        if (BR.password === pass) {
+        if (BR.password === pass && BR.userType == "Customer") {
             useremail = BR.email;
-            console.log(useremail)
+            username = BR.name;
+            console.log(useremail);
+            console.log(username);
             console.log("Login Successful");
             res.status(201).render("Payment");
+        }
+        else if(BR.password === pass && BR.userType == "Admin"){
+            console.log("Admin is in");
+            res.status(201).render("ViewOrderRequests");
         }
         else {
             res.send("Invalid Details");
         }
 
-
     } catch (error) {
         res.send("Can't Login");
         console.log("Can't Login");
+        console.log(error)
     }
 });
 
-// app.post("/Purchase", (req,res)=>{
-//     fs.readFile('items.json', function(error,data){
-//         if(error){
-//             console.log("items.json read file error")
-//             res.status(500).end()
-//         }else{
-//             console.log("Purchase")
-//             const itemsJson =JSON.parse(data)
-//             const itemsArray= itemsJson.pvcCompound.concat(itemsJson.burada)
+app.post("/ContactUsLoggedIn", async (req, res)=>{
+    try {
+        console.log("Inside ContactUs",useremail)
+        await BuyerRegister.updateOne({ 'email': useremail },
+            {
+                '$push': {
+                    'contact': [{
+                        query : req.body.query,
+                        queryDate : new Date().toISOString().slice(0, 10),
+                    }]
+                }
+            })
+        console.log("Query Submitted")
+        res.status(201).render("ContactUsLoggedIn");
+    } catch (error) {
+        res.status(400).send(error);
+    }
+});
 
-//             let total=0
-//             req.body.items.forEach(function(item){
-//                 const itemJson= itemsArray.find(function(i){
-//                     return i.id==item.id
-//                 })
-//                 total= total + itemJson.price * item.quantity
-//             })
-
-//             stripe.charges.create({
-//                 amount:total,
-//                 source: req.body.stripeTokenId,
-//                 currency:'INR'
-//             }).then(function(){
-//                 console.log("charge successful")
-//                 res.json({message: 'Successfully purchased Items'})
-//             }).catch(function(){
-//                 console.log("Charge Failed")
-//                 res.status(500).end()
-//             })
+//middleware err
+// async function auth(req, res, next) {
+//     try {
+//         console.log(` Email inside middleware ${req.body.Email}`);
+//         const email = req.body.Email;
+//         const pass = req.body.Password;
+//         const BR = await BuyerRegister.findOne({ email: email });
+//         if (BR.password === pass) {
+//             req.email = email
 //         }
-//     })
-// })
+//         next();
+//         return;
+//     } catch (err) {
+//         console.log("Error in middleware")
+//     }
+// }
+
 
 app.post("/Payment", (req, res) => {
+
     console.log(useremail)
     console.log(req.body.price)
-    
+
     var data = new Insta.PaymentData();
 
     const REDIRECT_URL = "http://localhost:8000/success";
@@ -190,20 +223,54 @@ app.post("/Payment", (req, res) => {
     data.amount = req.body.price;
     data.email = useremail;
 
-    Insta.createPayment(data, function (error, response) {
+    Insta.createPayment(data, async function (error, response) {
         if (error) {
             console.log("Error in InstaMojo Payment post method")
         } else {
-            // Payment redirection link at response.payment_request.longurl
             console.log(response)
+
+            try {
+                await BuyerRegister.updateOne({ 'email': useremail },
+                    {
+                        '$push': {
+                            'payment': [{
+                                name : username,
+                                email : useremail,
+                                amount: req.body.price,
+                                paidFor: req.body.str,
+                                transactionDate:new Date().toISOString().slice(0, 10),
+                                status: "Pending"
+                            }]
+                        }
+                    })
+                console.log("Payment details fetched in database")
+            } catch (error) {
+                res.status(400).send(error);
+            }
             res.send("Please check your email to make payment")
         }
     });
 })
 
-app.get('/success', (req, res) => {
+
+app.get('/success', onsuccess ,async (req, res) => {
     res.send("Payment is successful, Please check your email for invoice")
 })
+
+async function onsuccess(req, res, next) {
+    try {
+        await BuyerRegister.updateOne({ 'email': useremail }, {
+            '$push': {
+                'payment': [{
+                    status: "Successful"
+                }]
+            }
+        })
+        next();
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 app.listen(port, () => {
     console.log(`Sever is Running at: ${port}`);
