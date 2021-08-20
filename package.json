@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/app.js -e js,hbs",
-    "start":"node src/app.js"
+    "start": "node src/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -17,8 +17,7 @@
     "mongoose": "^5.12.7",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
-    "path": "^0.12.7",
-    "stripe": "^8.148.0"
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "dotenv": "^9.0.2"

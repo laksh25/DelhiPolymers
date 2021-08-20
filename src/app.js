@@ -1,4 +1,6 @@
-require('dotenv').config({ path: '.env' })
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({ path: '.env' })
+}
 
 const Insta = require("instamojo-nodejs");
 const API_KEY = process.env.API_KEY
@@ -91,16 +93,16 @@ app.get("/PaymentRecords", async (req, res) => {
     }
 });
 
-app.get("/ViewOrderRequests", async (req, res)=>{
-    try{
-        const BR = await BuyerRegister.find({userType: "Customer"});
-        console.log("BR type",typeof(BR));
+app.get("/ViewOrderRequests", async (req, res) => {
+    try {
+        const BR = await BuyerRegister.find({ userType: "Customer" });
+        console.log("BR type", typeof (BR));
         console.log(BR);
-        
-        res.status(201).render("ViewOrderRequests",{
-            orderDetails : BR
+
+        res.status(201).render("ViewOrderRequests", {
+            orderDetails: BR
         })
-    }catch(error){
+    } catch (error) {
         res.send("Error in loading ViewOrderRequests");
         console.log(error);
     }
@@ -124,7 +126,7 @@ app.post("/Register", async (req, res) => {
                 companyAddress: req.body.Address,
                 pincode: req.body.Pincode,
                 password: password,
-                userType : "Customer"
+                userType: "Customer"
             })
             const registered = await registerBuyer.save();
             console.log("Registration Successful");
@@ -154,7 +156,7 @@ app.post("/Login", async (req, res) => {
             console.log("Login Successful");
             res.status(201).render("Payment");
         }
-        else if(BR.password === pass && BR.userType == "Admin"){
+        else if (BR.password === pass && BR.userType == "Admin") {
             console.log("Admin is in");
             res.status(201).render("ViewOrderRequests");
         }
@@ -169,15 +171,15 @@ app.post("/Login", async (req, res) => {
     }
 });
 
-app.post("/ContactUsLoggedIn", async (req, res)=>{
+app.post("/ContactUsLoggedIn", async (req, res) => {
     try {
-        console.log("Inside ContactUs",useremail)
+        console.log("Inside ContactUs", useremail)
         await BuyerRegister.updateOne({ 'email': useremail },
             {
                 '$push': {
                     'contact': [{
-                        query : req.body.query,
-                        queryDate : new Date().toISOString().slice(0, 10),
+                        query: req.body.query,
+                        queryDate: new Date().toISOString().slice(0, 10),
                     }]
                 }
             })
@@ -234,11 +236,11 @@ app.post("/Payment", (req, res) => {
                     {
                         '$push': {
                             'payment': [{
-                                name : username,
-                                email : useremail,
+                                name: username,
+                                email: useremail,
                                 amount: req.body.price,
                                 paidFor: req.body.str,
-                                transactionDate:new Date().toISOString().slice(0, 10),
+                                transactionDate: new Date().toISOString().slice(0, 10),
                                 status: "Pending"
                             }]
                         }
@@ -253,7 +255,7 @@ app.post("/Payment", (req, res) => {
 })
 
 
-app.get('/success', onsuccess ,async (req, res) => {
+app.get('/success', onsuccess, async (req, res) => {
     res.send("Payment is successful, Please check your email for invoice")
 })
 
