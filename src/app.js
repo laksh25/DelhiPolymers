@@ -93,13 +93,12 @@ app.get("/PaymentRecords", async (req, res) => {
 
 app.get("/ViewOrderRequests", async (req, res)=>{
     try{
-        const cursor = await BuyerRegister.find({userType: "Customer"});
-        // cursor.each(function(err, item){
-        //     userPayment.push(item);
-        // })
-        console.log(cursor);
+        const BR = await BuyerRegister.find({userType: "Customer"});
+        console.log("BR type",typeof(BR));
+        console.log(BR);
+        
         res.status(201).render("ViewOrderRequests",{
-            orderDetails : cursor
+            orderDetails : BR
         })
     }catch(error){
         res.send("Error in loading ViewOrderRequests");
@@ -214,7 +213,8 @@ app.post("/Payment", (req, res) => {
 
     var data = new Insta.PaymentData();
 
-    const REDIRECT_URL = "http://localhost:8000/success";
+    // const REDIRECT_URL = "http://localhost:8000/success";
+    const REDIRECT_URL = "/success";
 
     data.setRedirectUrl(REDIRECT_URL);
     data.send_email = "True";

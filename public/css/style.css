@@ -326,7 +326,7 @@ footer{
 
 
 .footer-p{
-    text-align: center;
+    /* text-align: center; */
     font-size:1rem;
     color: #667292;
     font-weight: bold;
